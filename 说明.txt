@@ -1,0 +1,76 @@
+http://www.wayu.cn/65342.html
+
+
+1. 安装基本环境
+
+    Nginx 1.16.0  MySQL 5.5.62
+    php7.3
+
+    安装php扩展 fileinfo
+
+    安装php扩展 memcached
+
+    安装php扩展 swoole4
+
+    取消php禁用函数 shell_exec
+
+
+
+3.4 修改php配置，加入以下宝塔
+
+[swoole]
+extension = swoole.so
+
+extension=/www/wwwroot/loader73.so
+swoole_license_files=/www/wwwroot/license
+
+
+
+5. 配置网站
+5.1 宝塔指定网站目录为public
+5.2 配置伪静态
+
+if (!-e $request_filename) {
+    rewrite ^/(.*)  /index.php?s=$1 last;
+}
+
+
+请修改php.ini
+ 
+找到
+ 
+; cgi.force_redirect = 1
+ 
+去掉前面分号，把后面的1改为0
+cgi.force_redirect = 0
+
+6. 安装
+
+访问
+
+域名/install.php
+
+
+
+
+安装教程
+https://www.kxcms.com/doc/detail.html?id=3
+无任何域名限制
+不想官方发现你的域名最好更改后台统计代码数字
+和public/static/admin/index.js文件
+的统计代码数字
+如果需要升级
+只要你能拿到php7.3的补丁，直接升级就是了
+升级教程
+找到补丁，上传，在根目录解压，后台安全维护里面的数据库升级都不需要，直接就更新完毕，然后修改public/static/admin/index.js文件官方统计接口。升级完成
+
+章节本地化：
+https://www.kxcms.com/doc/detail.html?id=99
+
+任务进程启动：
+
+ cd /目录/目录/目录/.../指定目录 cd
+
+第一：ssh进网站目录
+第二：运行
+/www/server/php/72/bin/php kx cron:check
